@@ -1,4 +1,11 @@
 public class PracticeProblem {
+
+    // imported from 3.5 
+    // Revisions: 
+        // Added WALL constant
+        // Disabled Left and Down movement (some finish tiles aren't reachable with only UP and RIGHT so Left and Down conflicted with the assignment's criteria)
+        // Added a case for when LARGE is returned (swaps it for -1 to comply with test cases)
+
 	// Note that this solution can account for starting at not just the bottom left corner, and ending at any place on the grid.
 	// Note as well that this solution is not very optimized, as it makes redundant 'backwards' checks. This can be remedied by storing the direction that the previous "search" call used, and not going in that direction.
 	// Note that this solution will trigger a stack overflow on large sets of data. To avoid this, change directions only when hitting an obstacle or border, instead of on every iteration.
