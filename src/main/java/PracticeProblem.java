@@ -7,6 +7,7 @@ public class PracticeProblem {
 
 	public static final String START = "S";
 	public static final String FINISH = "F";
+    public static final String WALL = "*";
 	public static final int LARGE =(int) Math.pow(2,31)-1;
 
 	public static int nonNegativeMin(int[] args) {
@@ -38,6 +39,7 @@ public class PracticeProblem {
 				myY >= 0 && myY < grid.length &&// y within bounds
 				myX >= 0 && myX < grid[myY].length && // x within bounds
 				!grid[myY][myX].equals(START) && // not the starting square
+                !grid[myY][myX].equals(WALL) &&
 				(stepsCounts[myY][myX] == 0 || stepsCounts[myY][myX] > stepCount) // this is a shorter path or an unchecked path
 			)
 		) {
@@ -49,9 +51,9 @@ public class PracticeProblem {
 			}
 
 			return nonNegativeMin(new int[] {
-				search(grid, stepsCounts, myX, myY + 1, stepCount),
+				// search(grid, stepsCounts, myX, myY + 1, stepCount),
 				search(grid, stepsCounts, myX, myY - 1, stepCount),
-				search(grid, stepsCounts, myX - 1, myY, stepCount),
+				// search(grid, stepsCounts, myX - 1, myY, stepCount),
 				search(grid, stepsCounts, myX + 1, myY, stepCount)
 			});
 		}
@@ -65,7 +67,11 @@ public class PracticeProblem {
 		for (int y = 0; y < arr2d.length; y++) {
 			for (int x = 0; x < arr2d[y].length; x++) {
 				if (arr2d[y][x].equals(START)) {
-					return search(arr2d, stepCounterArray, x,y, -1);
+					int result = search(arr2d, stepCounterArray, x,y, -1);
+                    if (result == LARGE) {
+                        return -1;
+                    }
+                    return result;
 				}
 			}
 		}
@@ -80,6 +86,7 @@ public class PracticeProblem {
 				myY >= 0 && myY < grid.length &&// y within bounds
 				myX >= 0 && myX < grid[myY].length && // x within bounds
 				!grid[myY][myX].equals(START) && // not the starting square
+                !grid[myY][myX].equals(WALL) &&
 				(stepsCounts[myY][myX] == 0 || stepsCounts[myY][myX] >= stepCount) // this is a shorter path or an unchecked path
 			)
 		) {
